@@ -413,8 +413,7 @@
   const saved = (function(){
     try { return localStorage.getItem('preferredLang'); } catch(e){ return null; }
   })();
-  const browserLang = navigator.language && navigator.language.toLowerCase().startsWith('es') ? 'es' : 'en';
-  setLang(saved || browserLang);
+  setLang(saved || 'es');
 
   document.getElementById('year-es').textContent = new Date().getFullYear();
   document.getElementById('year-en').textContent = new Date().getFullYear();
