@@ -244,7 +244,7 @@
   .card.soon .card-icon svg{ stroke:var(--ink-soft); }
   .card.soon h2{ color:var(--ink-soft); font-size:1.1rem; margin-top:0; }
 
-  /* language visibility (specific to preserve flex/grid display types) */
+  /* language visibility */
   .card[data-es], .card[data-en],
   .seal[data-es], .seal[data-en]{ display:none; }
   html[data-lang="es"] .card[data-es]{ display:flex; }
@@ -410,11 +410,24 @@
     document.title = lang === 'es' ? 'Estudios Bíblicos · Menú' : 'Biblical Studies · Menu';
   }
 
-  const saved = (function(){
-    try { return localStorage.getItem('preferredLang'); } catch(e){ return null; }
-  })();
-  setLang(saved || 'es');
+  function initLanguage(){
+    let saved = null;
+    try {
+      saved = localStorage.getItem('preferredLang');
+    } catch(e){}
 
+    // Default Español, pero respeta la preferencia guardada del usuario
+    if (saved === 'en') {
+      setLang('en');
+    } else {
+      setLang('es');
+    }
+  }
+
+  // Ejecutar cuando la página cargue
+  window.addEventListener('load', initLanguage);
+
+  // Actualizar año
   document.getElementById('year-es').textContent = new Date().getFullYear();
   document.getElementById('year-en').textContent = new Date().getFullYear();
 </script>
